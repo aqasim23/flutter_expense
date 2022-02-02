@@ -52,8 +52,30 @@ class myHomePage extends StatefulWidget {
   State<myHomePage> createState() => _myHomePageState();
 }
 
-class _myHomePageState extends State<myHomePage> {
+class _myHomePageState extends State<myHomePage> with WidgetsBindingObserver{
   // String titleInput;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    print(state);
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
 
   final List<Transaction> _userTransactions = [
     // Transaction(
@@ -115,8 +137,10 @@ class _myHomePageState extends State<myHomePage> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
+
     final mediaQuery = MediaQuery.of(context);
 
     final isLandscape =
